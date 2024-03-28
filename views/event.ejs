@@ -10,8 +10,10 @@
 
         <div class="container-md my-4 mx-auto max-w-75">
             <div class="container">
-                <p class="h1 mb-4" style="text-transform: uppercase"><%= event.title %></p>
-
+                <div>
+                    <p class="h2" style="text-transform: uppercase"><%= event.title %></p>
+                    <p class="h6 mb-3" ><small><em>Organizer : <%= event.createdBy.fullName %></em></small></p>
+                </div>
                 <% if (locals.user) { %> <% if (user._id==event.createdBy._id) { %>
                 <div class="mb-4">
                     <a class="delete" href="/event/delete/<%= event._id %>">Delete</a>
@@ -29,14 +31,14 @@
                 </p>
 
                 <% if (event.registerUser.includes(user?._id)) { %>
-                <form action="/event/review/<%= event._id %>" method="post" autocomplete="off">
+                <form action="/review/<%= event._id %>" method="post">
                     <div class="my-3">
                         <input
                             type="text"
                             class="form-control"
                             id="content"
                             name="content"
-                            placeholder="Review here..." />
+                            placeholder="Review here..." required/>
                     </div>
                     <div class="my-3">
                         <label class="form-label" for="registrationRating"
@@ -47,7 +49,7 @@
                             id="registrationRating1"
                             name="registrationRating"
                             value="1"
-                            class="form-check-input" />
+                            class="form-check-input"/>
                         <label class="form-label" for="registrationRating1">1</label>
                         <input
                             type="radio"
@@ -215,30 +217,48 @@
                                     <p class="mb-1">Overall Rating : <%= review.overallRating %> out of 5</p>
                                 </div>
                                 <% if (locals.user) { %>
-                                 
-                                
-                                <div style="display: flex; justify-content: space-around">
+                                    
+                                <div style=" width: 100%; display: flex; justify-content: space-between">
+                                   
                                     <% if ( review.likes.includes(user?._id)) { %>
                                         
-                                        <a href="/event/review/like/<%= review._id %>" class="btn btn-primary btn-sm">
+                                        <a href="/review/like/<%= review._id %>" class="btn btn-primary btn-sm">
                                             Liked <%= review.likes?.length %>
                                         </a>
                                     <% } else { %>
-                                        <a href="/event/review/like/<%= review._id %>" class="btn btn-outline-primary btn-sm">
+                                        <a href="/review/like/<%= review._id %>" class="btn btn-outline-primary btn-sm">
                                             Like <%= review.likes?.length %>
                                         </a>
                                     <% } %>
                                     <% if (review.reports.includes(user?._id)) { %>
-                                        <a href="/event/review/report/<%= review._id %>" class="btn btn-danger btn-sm">
+                                        <a href="/review/report/<%= review._id %>" class="btn btn-danger btn-sm">
                                             Reported 
                                         </a>
                                     <% } else { %>
-                                        <a href="/event/review/report/<%= review._id %>" class="btn btn-outline-danger btn-sm">
+                                        <a href="/review/report/<%= review._id %>" class="btn btn-outline-danger btn-sm">
                                             Report 
                                         </a>
-                                    <% } %>
+                                    <% } %>                                    
                                 </div>
+                              
+
                                 <% } %>
+                                <div class="mt-3">
+                                    <% if (review.organizerResponse.length) { %> 
+                                        <div >
+                                            <% review.organizerResponse.forEach(res => { %>
+                                                <p ><em><small style="font-weight: 500;"><%= event.createdBy.fullName %> (Organizer) Replied : </small> <%= res %></em></p>
+                                            <% }) %>
+                                        </div>
+                                    <% } %>
+                                    <% if(user?.role === "ORGANIZER" ) {%>
+                                        <form  action="/review/response/<%= review._id %>" method="post" autocomplete="off">
+                                            <input  type="text" name="organizerResponse" class="form-control mb-2" placeholder="Write Your Response..." required >
+                                            <button type="submit"  class="btn btn-outline-info btn-sm">Respond</button>
+                                        </form>
+                                            
+                                    <% } %> 
+                                </div>
                             </span>
                             <% if (review.reports.length > 5) { %>
                                 <div>
@@ -250,7 +270,6 @@
                     <% }); %>
                 </div>
             </div>
-        </div>
         </div>
 
         <%- include('./partials/scripts') %>

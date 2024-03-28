@@ -11,15 +11,20 @@ const reviewSchema = new mongoose.Schema(
         },
         registrationRating: {
             type: Number,
+            default : 0,
         },
         eventRating: {
             type: Number,
+            default : 0,
         },
         breakfastRating: {
             type: Number,
+            default : 0,
         },
         overallRating: {
-            type: Number,     
+            type: Number,
+            default : 0,
+            
         },
         likes: {
             type: [String],
@@ -36,7 +41,8 @@ const reviewSchema = new mongoose.Schema(
             default: false,
         },
         organizerResponse: {
-            type: String,
+            type: [String],
+            default : [],
         },
         createdBy: {
             type: mongoose.Schema.Types.ObjectId,

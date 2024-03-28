@@ -1,5 +1,5 @@
-const Event = require("../models/event.model");
-const Review = require("../models/review.model");
+const Event = require("../models/event.model.js");
+const Review = require("../models/review.model.js");
 
 const handleCreateEvent = async (req, res) => {
     const { title, body } = req.body;
@@ -23,10 +23,6 @@ const handleGetEvent = async (req, res) => {
         event,
         reviews,
     });
-};
-
-const handleCreateReview = async (req, res) => {
-     
 };
 
 const handleDeleteEvent = async (req, res) => {
@@ -58,20 +54,9 @@ const handleRegisterEvent = async (req, res) => {
     }
 };
 
-const handleLikeReview = async (req, res) => {
-     
-};
-
-const handleReportReview = async (req, res) => {
-     
-};
-
 module.exports = {
     handleCreateEvent,
     handleGetEvent,
-    handleCreateReview,
     handleDeleteEvent,
     handleRegisterEvent,
-    handleLikeReview,
-    handleReportReview,
 };

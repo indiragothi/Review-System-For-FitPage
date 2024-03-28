@@ -36,15 +36,34 @@ app.use("/user", userRoutes);
 app.use('/event',eventRoutes);
 
 // Route for rendering the home page
+// Route for rendering the home page
 app.get("/", async (req, res) => {
-    // Retrieve all events from the database
-    const allEvents = await Event.find({});
 
-    // Render the home page and pass user and events data to the view
-    return res.render("home", {
-        user: req.user, // Pass the user object to the view
-        events: allEvents, // Pass the events array to the view
-    });
+    try {
+        // Retrieve all events from the database
+       const allEvents = await Event.find({});
+
+        // Your existing logic to retrieve events and calculate pagination values
+        let eventPerPage = 6;
+        let totalPages = Math.ceil(allEvents.length / eventPerPage);
+
+        let currentPage = parseInt(req.query.page) || 1;
+        currentPage = Math.max(currentPage, 1);
+        currentPage = Math.min(currentPage, totalPages);
+
+
+        // Render the home page template with the necessary variables
+        return res.render("home", {
+            user: req.user, // Pass the user object to the view
+            events: allEvents,
+            currentPage : currentPage,
+            eventPerPage : eventPerPage,
+            totalPages : totalPages, // Pass the events array to the view
+        });
+    } catch (error) {
+        console.error("Error fetching events:", error);
+        res.status(500).send("Internal Server Error");
+    } 
 });
 
 app.listen(PORT, () =>{

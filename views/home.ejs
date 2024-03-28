@@ -8,29 +8,82 @@
         <%- include('./partials/nav') %>
 
         <div class="container my-4">
-            <div class="d-flex flex-wrap">
-                <% events.forEach((event)=> { %>
-                <div class="card m-3 flex-item card text-white bg-dark" style="width: 18rem">
-                    <div class="card-body">
-                        <h5 class="card-title card-header" style="text-transform: capitalize">
-                            <%= event.title %>
-                        </h5>
+            <% if (events.length) { %>
+            <div class="d-flex flex-wrap" style="justify-content: space-around">
+                 
+                <%  
+                    let startIndex = (currentPage - 1) * eventPerPage;
+                    let endIndex = Math.min(startIndex + eventPerPage , events.length);
+                
+                    for(let i = startIndex ; i<endIndex ; i++){ 
+                    const event = events[i];
+                %>
+                <div
+                    class="card m-3 flex-item card text-white bg-dark"
+                    style="width: 22rem; height: 16rem">
+                    <div
+                        class="card-body"
+                        style="
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-around;
+                        ">
+                        <div class="card-title card-header" style="text-transform: capitalize">
+                            <h5><%= event.title %></h5>
+                        </div>
                         <div
                             class="card-footer flex-item"
                             style="display: flex; justify-content: space-between">
-                            <% if (locals.user) { %>
-                                <% if(event.registerUser.includes(user._id)) { %>
-                                    <a href="/event/register/<%= event._id %>" class="btn btn-success">Registered</a>
-                                <% } else { %>
-                                    <a href="/event/register/<%= event._id %>" class="btn btn-primary">Register</a>
-                                <% } %>
-                            <% } %>
+                            <% if (locals.user) { %> <% if(event.registerUser.includes(user._id)) {
+                            %>
+                            <a href="/event/register/<%= event._id %>?page=<%= currentPage%>" class="btn btn-success"
+                                >Registered</a
+                            >
+                            <% } else { %>
+                            <a href="/event/register/<%= event._id %>?page=<%= currentPage%>" class="btn btn-primary"
+                                >Register</a
+                            >
+                            <% } %> <% } %>
                             <a href="/event/<%= event._id %>" class="btn btn-primary">View</a>
                         </div>
                     </div>
                 </div>
-                <% }) %>
+                
+                <% } %>
             </div>
+            <div>
+                
+                <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <% if (currentPage > 1) { %>
+                        <li class="page-item">
+                            <a class="page-link" href="/?page=<%= currentPage - 1 %>">Previous</a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                    <% } %>
+
+                    <% for (let i = 1; i <= totalPages; i++) { %>
+                        <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                            <a class="page-link" href="/?page=<%= i %>"><%= i %></a>
+                        </li>
+                    <% } %>
+
+                    <% if (currentPage < totalPages) { %>
+                        <li class="page-item">
+                            <a class="page-link" href="/?page=<%= currentPage + 1 %>">Next</a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    <% } %>
+                </ul>
+            </nav>
+            </div>
+            <% } %>
         </div>
         <%- include('./partials/scripts') %>
     </body>
