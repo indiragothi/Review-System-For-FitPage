@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser()); // Middleware for parsing cookies
 
 // Routes
-app.use("/user", protectRoute, userRoutes);
+app.use("/user",  userRoutes);
 app.use('/event',protectRoute, eventRoutes);
 app.use('/review',protectRoute, reviewRoutes);
 
