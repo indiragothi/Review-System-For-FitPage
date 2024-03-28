@@ -11,7 +11,7 @@ const userRoutes = require("./routes/user.route");
 const eventRoutes = require('./routes/event.route');
 
 // Middleware for authentication
-const protectRoute = require("./middleware/protectRoute");
+// const protectRoute = require("./middleware/protectRoute");
 
 // mongoDB Connection
 const connectToMongoDB = require("./db/connectToMongoDB");

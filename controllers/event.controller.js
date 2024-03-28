@@ -7,7 +7,7 @@ const handleCreateEvent = async (req, res) => {
         const event = await Event.create({
             title,
             body,
-            createdBy: req.user._id,
+            createdBy: req.user?._id,
         });
         return res.redirect(`/event/${event._id}`);
     } catch (error) {
