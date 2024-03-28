@@ -30,11 +30,32 @@ const handleCreateReview = async (req, res) => {
 };
 
 const handleDeleteEvent = async (req, res) => {
-     
+    try {
+        await Event.findByIdAndDelete(req.params.id);
+        return res.redirect("/");
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 const handleRegisterEvent = async (req, res) => {
-     
+    try {
+        const id = req.params.id;
+
+        const event = await Event.findById(id);
+        const index = event.registerUser.findIndex((id) => id === String(req.user._id));
+
+        if (index === -1) {
+            event.registerUser.push(String(req.user._id));
+        } else {
+            event.registerUser = event.registerUser.filter((id) => id !== String(req.user._id));
+        }
+        const updatedEvent = await Event.findByIdAndUpdate(id, event, { new: true });
+        return res.status(201).redirect("/");
+    } catch (error) {
+        console.log(error);
+        return res.status(400).redirect("/");
+    }
 };
 
 const handleLikeReview = async (req, res) => {
