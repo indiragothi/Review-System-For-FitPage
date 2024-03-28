@@ -12,7 +12,7 @@ const eventRoutes = require('./routes/event.route.js');
 const reviewRoutes = require("./routes/review.route.js");
 
 // Middleware for authentication
-// const protectRoute = require("./middleware/protectRoute");
+const protectRoute = require("./middleware/protectRoute.js");
 
 // mongoDB Connection
 const connectToMongoDB = require("./db/connectToMongoDB");
@@ -33,9 +33,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser()); // Middleware for parsing cookies
 
 // Routes
-app.use("/user", userRoutes);
-app.use('/event',eventRoutes);
-app.use('/review',reviewRoutes);
+app.use("/user", protectRoute, userRoutes);
+app.use('/event',protectRoute, eventRoutes);
+app.use('/review',protectRoute, reviewRoutes);
 
 // Route for rendering the home page
 app.get("/", async (req, res) => {

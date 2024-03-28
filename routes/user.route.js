@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { handleSignIn, handleSignUp, handleLogOut } = require("../controllers/user.controller.js");
-
+ 
 //For Get Routes Just Render The SignIn / SignUp Page from Views
 router.get("/signin", (req, res) => {
     return res.render("signin");
