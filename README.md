@@ -1,5 +1,7 @@
 # ReviewSystem Application
 
+Review-System is a sophisticated platform crafted with EJS, Bootstrap, Node.js, Express, and MongoDB. It provides secure CRUD functionalities and a robust authentication system, ensuring seamless review and rating operations. Its intuitive design facilitates efficient feedback management for enhanced user experiences.
+
 
 ## Technologies Used
 
