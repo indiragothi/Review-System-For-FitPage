@@ -5,10 +5,11 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser"); 
 
 // models
-const Event = require("./models/event.model"); 
+const Event = require("./models/event.model.js"); 
 
-const userRoutes = require("./routes/user.route"); 
-const eventRoutes = require('./routes/event.route');
+const userRoutes = require("./routes/user.route.js"); 
+const eventRoutes = require('./routes/event.route.js');
+const reviewRoutes = require("./routes/review.route.js");
 
 // Middleware for authentication
 // const protectRoute = require("./middleware/protectRoute");
@@ -34,8 +35,8 @@ app.use(cookieParser()); // Middleware for parsing cookies
 // Routes
 app.use("/user", userRoutes);
 app.use('/event',eventRoutes);
+app.use('/review',reviewRoutes);
 
-// Route for rendering the home page
 // Route for rendering the home page
 app.get("/", async (req, res) => {
 
