@@ -9,7 +9,7 @@ const handleCreateReview = async (req, res) => {
             eventRating: req.body.eventRating,
             breakfastRating: req.body.breakfastRating,
             overallRating: req.body.overallRating,
-            createdBy: req.user?._id,
+            createdBy: req.user._id,
         });
         return res.status(201).redirect(`/event/${req.params.eventId}`);
     } catch (error) {

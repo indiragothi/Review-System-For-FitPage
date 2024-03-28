@@ -247,11 +247,11 @@
                                     <% if (review.organizerResponse.length) { %> 
                                         <div >
                                             <% review.organizerResponse.forEach(res => { %>
-                                                <p ><em><small style="font-weight: 500;"><%= event.createdBy.fullName %> (Organizer) Replied : </small> <%= res %></em></p>
+                                                <p ><em><small style="font-weight: 500;"><%= event.createdBy.fullName%>(Organizer) Replied : </small> <%= res %></em></p>
                                             <% }) %>
                                         </div>
                                     <% } %>
-                                    <% if(user?.role === "ORGANIZER" ) {%>
+                                    <% if(user?.role === "ORGANIZER" && user.name === event.createdBy.fullName) {%>
                                         <form  action="/review/response/<%= review._id %>" method="post" autocomplete="off">
                                             <input  type="text" name="organizerResponse" class="form-control mb-2" placeholder="Write Your Response..." required >
                                             <button type="submit"  class="btn btn-outline-info btn-sm">Respond</button>
