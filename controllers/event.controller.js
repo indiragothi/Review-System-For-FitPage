@@ -43,12 +43,12 @@ const handleRegisterEvent = async (req, res) => {
         const id = req.params.id;
 
         const event = await Event.findById(id);
-        const index = event.registerUser.findIndex((id) => id === String(req.user._id));
+        const index = event.registerUser.findIndex((id) => id === String(req.user?._id));
 
         if (index === -1) {
-            event.registerUser.push(String(req.user._id));
+            event.registerUser.push(String(req.user?._id));
         } else {
-            event.registerUser = event.registerUser.filter((id) => id !== String(req.user._id));
+            event.registerUser = event.registerUser.filter((id) => id !== String(req.user?._id));
         }
         const updatedEvent = await Event.findByIdAndUpdate(id, event, { new: true });
         return res.status(201).redirect("/");
