@@ -9,7 +9,7 @@
 
         <div class="container my-4">
             <% if (events.length) { %>
-            <div class="d-flex flex-wrap" style="justify-content: space-around">
+            <div class="d-flex flex-wrap" style="justify-content: flex-start;">
                  
                 <%  
                     let startIndex = (currentPage - 1) * eventPerPage;
@@ -30,6 +30,10 @@
                         ">
                         <div class="card-title card-header" style="text-transform: capitalize">
                             <h5><%= event.title %></h5>
+                        </div>
+                        <div class="card-body" style="    display: flex;  flex-direction: column; justify-content: space-between;">
+                            <h6> <%= event.date?.toDateString() %> | <%= event.time %> onwards </h6>
+                            <h6>Venue: <%= event.venue %></h6>
                         </div>
                         <div
                             class="card-footer flex-item"

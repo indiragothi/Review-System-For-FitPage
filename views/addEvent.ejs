@@ -18,6 +18,7 @@
                         name="title"
                         placeholder="Enter Title of Event" />
                 </div>
+
                 <div class="mb-3">
                     <label for="body" class="form-label">Content</label>
                     <textarea
@@ -25,8 +26,27 @@
                         placeholder="Your Content Goes Here..."
                         id="body"
                         name="body"
-                        cols="30" rows="9"></textarea>
+                        cols="30"
+                        rows="9"></textarea>
                 </div>
+
+                <div
+                    class="form-row form-control mb-3"
+                    style="display: flex; flex-direction: row; justify-content: space-between">
+                    <div class="col-auto">
+                        <label for="date" class="form-label">Date</label>
+                        <input type="date" id="date" name="date" required />
+                    </div>
+                    <div class="col-auto">
+                        <label for="time" class="form-label">Time</label>
+                        <input type="time" id="time" name="time" required />
+                    </div>
+                    <div class="col-auto">
+                        <label for="venue" class="form-label">Venue</label>
+                        <input type="text" id="venue" name="venue" autocomplete="off" required />
+                    </div>
+                </div>
+
                 <div>
                     <button type="submit" class="btn btn-primary">Post</button>
                 </div>

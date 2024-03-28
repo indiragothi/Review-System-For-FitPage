@@ -22,25 +22,33 @@
             </div>
 
             <div class="container">
-                <p class="mt-4"><%= event.body %></p>
+                <pre class="mt-4"><%= event.body %></pre>
             </div>
 
-            <div class="container mt-4 border-top pt-4">
+            <div class="container mt-4 border-top pt-4" >
                 <p class="h4">
                     Reviews <% if (reviews.length) { %> (<%= reviews.length %>) <% } %>
                 </p>
 
                 <% if (event.registerUser.includes(user?._id)) { %>
-                <form action="/review/<%= event._id %>" method="post" autocomplete="off">
+                <form action="/review/<%= event._id %>" method="post" autocomplete="off" >
                     <div class="my-3">
-                        <input
+                        <textarea
                             type="text"
                             class="form-control"
                             id="content"
                             name="content"
-                            placeholder="Review here..." required/>
+                            placeholder="Review here..."  required style=" width: 50%;
+                            height: 80px;
+                            padding: 12px 20px;
+                            box-sizing: border-box;
+                            border: 2px solid #ccc;
+                            border-radius: 4px;
+                            background-color: #f8f8f8;
+                            font-size: 16px;
+                            resize: none;"></textarea>
                     </div>
-                    <div class="my-3">
+                    <div class="my-3" >
                         <label class="form-label" for="registrationRating"
                             >Registration Rating :
                         </label>
@@ -209,7 +217,7 @@
                         <div class="mb-3 d-flex flex-row">
                             <span class="ps-3">
                                 <p class="mb-0"><strong> <%= review.createdBy.fullName %> </strong></p>
-                                <p class="mb-0"><%= review.content %></p>
+                                <pre class="mb-0"><%= review.content %></pre>
                                 <div class="mt-3">
                                     <p class="mb-1">Registration Rating : <%= review.registrationRating %> out of 5</p>
                                     <p class="mb-1">Event Rating : <%= review.eventRating %> out of 5</p>
@@ -247,13 +255,21 @@
                                     <% if (review.organizerResponse.length) { %> 
                                         <div >
                                             <% review.organizerResponse.forEach(res => { %>
-                                                <p ><em><small style="font-weight: 500;"><%= event.createdBy.fullName%>(Organizer) Replied : </small> <%= res %></em></p>
+                                                <pre ><em><small style="font-weight: 500;"><%= event.createdBy.fullName%>(Organizer) Replied : </small> <%= res %></em></pre>
                                             <% }) %>
                                         </div>
                                     <% } %>
                                     <% if(user?.role === "ORGANIZER" && user.name === event.createdBy.fullName) {%>
                                         <form  action="/review/response/<%= review._id %>" method="post" autocomplete="off">
-                                            <input  type="text" name="organizerResponse" class="form-control mb-2" placeholder="Write Your Response..." required >
+                                            <textarea   name="organizerResponse" class="form-control mb-2" placeholder="Write Your Response..." required style=" width: 100%;
+                                            height: 60px;
+                                            padding: 12px 20px;
+                                            box-sizing: border-box;
+                                            border: 2px solid #ccc;
+                                            border-radius: 4px;
+                                            background-color: #f8f8f8;
+                                            font-size: 16px;
+                                            resize: none;" ></textarea>
                                             <button type="submit"  class="btn btn-outline-info btn-sm">Respond</button>
                                         </form>
                                             

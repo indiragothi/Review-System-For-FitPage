@@ -2,11 +2,14 @@ const Event = require("../models/event.model.js");
 const Review = require("../models/review.model.js");
 
 const handleCreateEvent = async (req, res) => {
-    const { title, body } = req.body;
+    const { title, body ,date , venue  , time} = req.body;
     try {
         const event = await Event.create({
             title,
             body,
+            date,
+            time,
+            venue,
             createdBy: req.user?._id,
         });
         return res.redirect(`/event/${event._id}`);
@@ -39,12 +42,12 @@ const handleRegisterEvent = async (req, res) => {
     try {
         const id = req.params.id;
         const event = await Event.findById(id);
-        const index = event.registerUser.findIndex((id) => id === String(req.user._id));
+        const index = event.registerUser.findIndex((id) => id === String(req.user?._id));
 
         if (index === -1) {
-            event.registerUser.push(String(req.user._id));
+            event.registerUser.push(String(req.user?._id));
         } else {
-            event.registerUser = event.registerUser.filter((id) => id !== String(req.user._id));
+            event.registerUser = event.registerUser.filter((id) => id !== String(req.user?._id));
         }
         const updatedEvent = await Event.findByIdAndUpdate(id, event, { new: true });
         return res.status(201).redirect(`/?page=${req.query.page}`);
