@@ -1,4 +1,4 @@
-# Review-System - A Review Application
+# ReviewSystem Application
 
 
 ## Technologies Used
