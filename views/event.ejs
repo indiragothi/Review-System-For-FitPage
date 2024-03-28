@@ -12,7 +12,7 @@
             <div class="container">
                 <div>
                     <p class="h2" style="text-transform: uppercase"><%= event.title %></p>
-                    <p class="h6 mb-3" ><small><em>Organizer : <%= event.createdBy.fullName %></em></small></p>
+                    <p class="h6 mb-3" ><small><em>Organizer : <%= event.createdBy?.fullName %></em></small></p>
                 </div>
                 <% if (locals.user) { %> <% if (user._id==event.createdBy._id) { %>
                 <div class="mb-4">
@@ -31,7 +31,7 @@
                 </p>
 
                 <% if (event.registerUser.includes(user?._id)) { %>
-                <form action="/review/<%= event._id %>" method="post">
+                <form action="/review/<%= event._id %>" method="post" autocomplete="off">
                     <div class="my-3">
                         <input
                             type="text"
